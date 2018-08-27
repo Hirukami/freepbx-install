@@ -1,11 +1,12 @@
 #!/bin/bash
-#TODO 
+#TODO
 #check if sestatus disabled
 #add iptables
 #create keys for tls SRTP
 #firewalld not removed
 MYSQL_PWD=$(openssl rand -base64 16)
 MYSQL_USER=root
+CURRENT_PWD=$(pwd)
 echo $MYSQL_PWD > mysqlpass
 # Opening TCP port 80 fro administration interface access
 #
@@ -32,11 +33,11 @@ yum install php56w php56w-pdo php56w-mysql php56w-mbstring php56w-pear php56w-pr
 #Installing nodejs
 curl -sL https://rpm.nodesource.com/setup_8.x | bash -
 yum install -y nodejs
-
 # Enabling and starting MariaDB
 systemctl enable mariadb.service
 systemctl start mariadb
 
+#delete test DB etc.
 mysql -e "DELETE FROM mysql.user WHERE User='';"
 mysql -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');"
 mysql -e "DROP DATABASE IF EXISTS test;"
@@ -51,10 +52,6 @@ systemctl start httpd.service
 # Installing Legacy Pear requirements
 pear install Console_Getopt
 
-#Installing Dependencies for Google Voice if needed
-#Installing iksemel
-
-
 # Compiling and Installing jansson
 cd /usr/src
 wget -O jansson.zip https://codeload.github.com/akheron/jansson/zip/master
@@ -65,10 +62,6 @@ autoreconf -i
 ./configure --libdir=/usr/lib64
 make
 make install
-
-#Compile and install DAHDI if needed
-#If you don't have any physical PSTN hardware attached to this machine, you don't need to install DAHDI (For example, a T1 or E1 card, or a USB device). Most smaller setups will not have DAHDI hardware, and this step can be safely skipped.
-
 
 # Preparing for Asterisk installation
 adduser asterisk -m -c "Asterisk User"
@@ -85,16 +78,14 @@ wget http://mirror.freepbx.org/modules/packages/freepbx/freepbx-14.0-latest.tgz
 ls -1 | while read line ; do tar xvfz $line ; done
 rm -rf $(ls  *tar.gz*)
 # Compiling and installing Asterisk
-cd /usr/src
+cd /usr/src/asterisk-*
 
-
-cd asterisk-*
 contrib/scripts/install_prereq install
 ./configure --libdir=/usr/lib64 --with-crypto --with-ssl=ssl --with-srtp --with-pjproject-bundled
 contrib/scripts/get_mp3_source.sh
 
-# Making some configuration of installation options, modules, etc. After selecting 'Save & Exit' you can then continue
-cp -R menuselect* /usr/src/asterisk-*
+# copy menuselect
+cp -R ${CURRENT_PWD}/menuselect* /usr/src/asterisk-*
 
 # Installation itself
 make
