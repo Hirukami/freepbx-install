@@ -1,6 +1,6 @@
 #!/bin/bash
 yum install mercurial git tmux -y
-hg clone ssh://hg@bitbucket.org/golubev_nk/freepbx-install
+git clone https://github.com/Hirukami/freepbx-install.git
 cd freepbx-install
 tmux
 bash freepbx-install.sh
