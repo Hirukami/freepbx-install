@@ -1,6 +1,7 @@
+sudo: required
+services:
+  - docker
 language: bash
-env:
-  - OS_TYPE=centos OS_VERSION=7 ANSIBLE_VERSION=1.9.2
-  
-script:
-    - ./install.sh
+
+before_install:
+ - docker build -t freepbx-install .
