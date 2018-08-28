@@ -1,6 +1,4 @@
 #!/bin/bash
-set -e
-set -x
 #TODO
 #check if sestatus disabled
 #add iptables
