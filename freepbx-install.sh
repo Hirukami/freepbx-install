@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+set -x
 #TODO
 #check if sestatus disabled
 #add iptables
@@ -8,10 +10,7 @@ MYSQL_PWD=$(openssl rand -base64 16)
 MYSQL_USER=root
 CURRENT_PWD=$(pwd)
 echo $MYSQL_PWD > mysqlpass
-# Opening TCP port 80 fro administration interface access
-#
-yum remove firewalld -y
-systemctl disable firewalld
+
 # Updating packages
 yum -y update
 
@@ -138,3 +137,4 @@ EOF
 #autostartup
 systemctl daemon-reload
 systemctl enable freepbx.service
+systemctl disable firewalld
