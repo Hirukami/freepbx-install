@@ -1,4 +1,5 @@
 FROM centos:7
 COPY . /freepbx
-RUN bash /freepbx/install.sh
-CMD bash tail -f /var/log/asterisk/freepbx.log
+SHELL ["/bin/bash", "-c"]
+RUN /freepbx/freepbx-install.sh
+CMD tail -f /var/log/asterisk/freepbx.log
