@@ -94,6 +94,10 @@ make config
 ldconfig
 systemctl disable asterisk
 
+cd /usr/src/
+#copy codecs
+codecs=$(ls  * | grep -e "codec_.*.so")
+for key in $codecs; do cp $(find -name $key) /usr/lib64/asterisk/modules/; done;
 # Setting Asterisk ownership permissions.
 chown asterisk. /var/run/asterisk
 chown -R asterisk. /etc/asterisk
@@ -111,3 +115,26 @@ systemctl restart httpd.service
 cd /usr/src/freepbx
 ./start_asterisk start
 ./install -n --dbuser=${MYSQL_USER} --dbpass ${MYSQL_PWD}
+
+#add service for Asterisk
+#!/bin/bash
+cat << EOF >> /etc/systemd/system/freepbx.service
+
+[Unit]
+Description=FreePBX VoIP Server
+After=mariadb.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/sbin/fwconsole start -q
+ExecStop=/usr/sbin/fwconsole stop -q
+
+[Install]
+WantedBy=multi-user.target
+
+EOF
+
+#autostartup
+systemctl daemon-reload
+systemctl enable freepbx.service
