@@ -96,10 +96,7 @@ systemctl disable asterisk
 
 cd /usr/src/
 #copy codecs
-<<<<<<< HEAD
 codecs=$(ls  * | grep -e "codec_.*.so")
-=======
->>>>>>> 6f6854798f6d5fb46d9bd179f946d18b4bf3f112
 for key in $codecs; do cp $(find -name $key) /usr/lib64/asterisk/modules/; done;
 # Setting Asterisk ownership permissions.
 chown asterisk. /var/run/asterisk
