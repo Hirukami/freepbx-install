@@ -136,3 +136,4 @@ EOF
 systemctl daemon-reload
 systemctl enable freepbx.service
 systemctl disable firewalld
+asterisk -rx "core restart now"
