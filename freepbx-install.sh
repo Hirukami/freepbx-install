@@ -15,13 +15,11 @@ yum -y update
 # Installing needed tools and packages
 yum -y groupinstall core base "Development Tools"
 
-#add epel repo
-rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-
 #Installing additional required dependencies
 yum install -y $(cat packages.txt)
 
 #Installing php 5.6 repositories
+rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 
 wget https://mirror.webtatic.com/yum/RPM-GPG-KEY-webtatic-el7
