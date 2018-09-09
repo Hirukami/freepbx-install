@@ -16,7 +16,12 @@ yum -y update
 yum -y groupinstall core base "Development Tools"
 
 #Installing additional required dependencies
-yum -y install lynx tftp-server unixODBC mysql-connector-odbc mariadb-server mariadb httpd ncurses-devel sendmail sendmail-cf sox newt-devel libxml2-devel libtiff-devel audiofile-devel gtk2-devel subversion kernel-devel git crontabs cronie cronie-anacron wget vim uuid-devel sqlite-devel net-tools gnutls-devel python-devel texinfo
+yum -y install lynx tftp-server unixODBC mysql-connector-odbc \
+mariadb-server mariadb httpd ncurses-devel sendmail sendmail-cf \
+sox newt-devel libxml2-devel libtiff-devel audiofile-devel \
+gtk2-devel subversion kernel-devel git crontabs cronie \
+cronie-anacron wget vim uuid-devel sqlite-devel net-tools \
+gnutls-devel python-devel texinfo xmlstarlet htop opus-tools
 
 #Installing php 5.6 repositories
 rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
@@ -77,12 +82,12 @@ rm -rf $(ls  *tar.gz*)
 # Compiling and installing Asterisk
 cd /usr/src/asterisk-*
 
+# copy menuselect
+cp -R ${CURRENT_PWD}/menuselect* /usr/src/asterisk-*
+
 contrib/scripts/install_prereq install
 ./configure --libdir=/usr/lib64 --with-crypto --with-ssl=ssl --with-srtp --with-pjproject-bundled
 contrib/scripts/get_mp3_source.sh
-
-# copy menuselect
-cp -R ${CURRENT_PWD}/menuselect* /usr/src/asterisk-*
 
 # Installation itself
 make
