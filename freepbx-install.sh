@@ -21,7 +21,11 @@ mariadb-server mariadb httpd ncurses-devel sendmail sendmail-cf \
 sox newt-devel libxml2-devel libtiff-devel audiofile-devel \
 gtk2-devel subversion kernel-devel git crontabs cronie \
 cronie-anacron wget vim uuid-devel sqlite-devel net-tools \
+<<<<<<< HEAD
 gnutls-devel python-devel texinfo xmlstarlet htop opus-tools
+=======
+gnutls-devel python-devel texinfo xmlstarlet htop
+>>>>>>> c39890055b797b2317bc0f6dcf92ed4989c3d193
 
 #Installing php 5.6 repositories
 rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
