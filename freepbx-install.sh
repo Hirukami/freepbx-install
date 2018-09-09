@@ -16,12 +16,12 @@ yum -y update
 yum -y groupinstall core base "Development Tools"
 
 #Installing additional required dependencies
-yum -y install lynx tftp-server unixODBC mysql-connector-odbc \
+yum install lynx tftp-server unixODBC mysql-connector-odbc \
 mariadb-server mariadb httpd ncurses-devel sendmail sendmail-cf \
 sox newt-devel libxml2-devel libtiff-devel audiofile-devel \
 gtk2-devel subversion kernel-devel git crontabs cronie \
 cronie-anacron wget vim uuid-devel sqlite-devel net-tools \
-gnutls-devel python-devel texinfo xmlstarlet htop opus-tools
+gnutls-devel python-devel texinfo xmlstarlet htop opus-tools -y
 
 
 #Installing php 5.6 repositories
