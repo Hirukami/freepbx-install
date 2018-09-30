@@ -18,14 +18,13 @@ yum -y groupinstall core base "Development Tools"
 #add epel repo
 rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 
-#Installing additional required dependencies
-yum install -y $(cat packages.txt)
-
 #Installing php 5.6 repositories
 rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 
 wget https://mirror.webtatic.com/yum/RPM-GPG-KEY-webtatic-el7
 rpm --import RPM-GPG-KEY-webtatic-el7
+#Installing additional required dependencies
+yum install -y $(cat packages.txt)
 # Install php5.6w
 yum install php56w php56w-pdo php56w-mysql php56w-mbstring php56w-pear php56w-process php56w-xml php56w-opcache php56w-ldap php56w-intl php56w-soap -y
 
@@ -138,4 +137,5 @@ EOF
 systemctl daemon-reload
 systemctl enable freepbx.service
 systemctl disable firewalld
+systemctl stop firewalld
 asterisk -rx "core restart now"
